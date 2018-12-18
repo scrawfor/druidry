@@ -22,6 +22,7 @@ import com.premierinc.webanalytics.druidry.client.exception.QueryException;
 import com.premierinc.webanalytics.druidry.query.DruidQuery;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 @Slf4j
 public class DruidJerseyClient implements DruidClient {
@@ -53,7 +54,6 @@ public class DruidJerseyClient implements DruidClient {
 
         try {
             if (jerseyConfig == null) {
-
                 HttpClientConnectionManager connectionManager = createConnectionManager();
                 this.jerseyConfig = new ClientConfig();
                 this.jerseyConfig.property(ApacheClientProperties.CONNECTION_MANAGER, connectionManager);
@@ -61,7 +61,15 @@ public class DruidJerseyClient implements DruidClient {
             }
 
             this.client = ClientBuilder.newClient(this.jerseyConfig);
+
+            if (this.druidConfiguration.getUsername() != null && this.druidConfiguration.getPassword() != null) {
+                HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(this.druidConfiguration.getUsername(), this.druidConfiguration.getPassword());
+                client.register(feature);
+            }
+
             this.queryWebTarget = this.client.target(this.druidUrl);
+
+
 
         } catch (Exception e) {
             throw new ConnectionException(e);

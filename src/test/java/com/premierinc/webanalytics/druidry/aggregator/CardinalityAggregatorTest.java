@@ -21,6 +21,7 @@ package com.premierinc.webanalytics.druidry.aggregator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.premierinc.webanalytics.druidry.extensions.datasketches.aggregator.ThetaSketchAggregator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +47,7 @@ public class CardinalityAggregatorTest {
     @Test
     public void testAllFields() throws JsonProcessingException, JSONException {
 
-        List<String> fields = Arrays.asList("Cardinal", "Aggregator");
+        List<Object> fields = Arrays.asList("Cardinal", "Aggregator");
 
         CardinalityAggregator cardinalityAggregator = CardinalityAggregator.builder()
                 .name("Hello")
@@ -70,7 +71,7 @@ public class CardinalityAggregatorTest {
     @Test
     public void testRequiredFields() throws JsonProcessingException, JSONException {
 
-        List<String> fields = Arrays.asList("Cardinal", "Aggregator");
+        List<Object> fields = Arrays.asList("Cardinal", "Aggregator");
 
         CardinalityAggregator cardinalityAggregator = CardinalityAggregator.builder()
                 .name("Hello")
@@ -92,7 +93,7 @@ public class CardinalityAggregatorTest {
     @Test(expectedExceptions = NullPointerException.class)
     public void testMissingNameField() throws JsonProcessingException, JSONException {
 
-        List<String> fields = Arrays.asList("Cardinal", "Aggregator");
+        List<Object> fields = Arrays.asList("Cardinal", "Aggregator");
 
         CardinalityAggregator cardinalityAggregator = CardinalityAggregator.builder()
                 .fields(fields)
@@ -153,5 +154,23 @@ public class CardinalityAggregatorTest {
         CountAggregator aggregator2 = new CountAggregator("count");
 
         Assert.assertNotEquals(aggregator1, aggregator2);
+    }
+
+    @Test
+    public void testRename() {
+        CardinalityAggregator aggregator1 = CardinalityAggregator
+                .builder()
+                .name("name")
+                .byRow(false)
+                .fields(Collections.singletonList("list"))
+                .build();
+
+        CardinalityAggregator aggregator2 = (CardinalityAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getByRow(), aggregator2.getByRow());
+        Assert.assertEquals(aggregator1.getFields(), aggregator2.getFields());
     }
 }

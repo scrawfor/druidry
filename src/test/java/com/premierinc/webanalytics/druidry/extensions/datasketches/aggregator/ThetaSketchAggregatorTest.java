@@ -3,10 +3,12 @@ package com.premierinc.webanalytics.druidry.extensions.datasketches.aggregator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.premierinc.webanalytics.druidry.aggregator.DoubleMinAggregator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -88,4 +90,16 @@ public class ThetaSketchAggregatorTest {
                 .build();
     }
 
+    @Test
+    public void testRename() {
+        ThetaSketchAggregator aggregator1 = new ThetaSketchAggregator("name", "testField", false, 8L);
+        ThetaSketchAggregator aggregator2 = (ThetaSketchAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+        Assert.assertEquals(aggregator1.getIsInputThetaSketch(), aggregator2.getIsInputThetaSketch());
+        Assert.assertEquals(aggregator1.getSize(), aggregator2.getSize());
+    }
 }

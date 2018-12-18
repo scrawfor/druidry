@@ -28,10 +28,15 @@ public class DoubleMinAggregator extends DruidAggregator {
 
     private static final String DOUBLE_MIN_TYPE_AGGREGATOR = "doubleMin";
     private String fieldName;
+    private String name;
 
     public DoubleMinAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = DOUBLE_MIN_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new DoubleMinAggregator(name, this.fieldName);
     }
 }

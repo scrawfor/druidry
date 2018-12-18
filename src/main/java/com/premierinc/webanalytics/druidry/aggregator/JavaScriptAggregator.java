@@ -26,6 +26,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.experimental.Wither;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -34,6 +35,7 @@ public class JavaScriptAggregator extends DruidAggregator {
     private static final String JAVASCRIPT_AGGREGATOR_TYPE = "javascript";
 
     private List<String> fieldNames;
+    private String name;
 
     @JsonProperty("fnAggregate")
     private String functionAggregate;
@@ -57,5 +59,15 @@ public class JavaScriptAggregator extends DruidAggregator {
         this.functionAggregate = functionAggregate;
         this.functionCombine = functionCombine;
         this.functionReset = functionReset;
+    }
+
+    public JavaScriptAggregator withName(String name) {
+        return JavaScriptAggregator.builder()
+                .name(name)
+                .fieldNames(this.fieldNames)
+                .functionAggregate(this.functionAggregate)
+                .functionCombine(this.functionCombine)
+                .functionReset(this.functionReset)
+                .build();
     }
 }

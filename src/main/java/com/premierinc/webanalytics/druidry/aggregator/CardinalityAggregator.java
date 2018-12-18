@@ -26,6 +26,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.experimental.Wither;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
@@ -33,14 +34,20 @@ import lombok.NonNull;
 public class CardinalityAggregator extends DruidAggregator {
 
     private static final String CARDINALITY_AGGREGATOR_TYPE = "cardinality";
-    private List<String> fields;
+
+    private List<Object> fields;
     private Boolean byRow;
+    private String name;
 
     @Builder
-    private CardinalityAggregator(@NonNull String name, @NonNull List<String> fields, Boolean byRow) {
+    private CardinalityAggregator(@NonNull String name, @NonNull List<Object> fields, Boolean byRow) {
         this.type = CARDINALITY_AGGREGATOR_TYPE;
         this.name = name;
         this.fields = fields;
         this.byRow = byRow;
+    }
+
+    public CardinalityAggregator withName(String name) {
+        return CardinalityAggregator.builder().fields(this.fields).byRow(this.byRow).name(name).build();
     }
 }

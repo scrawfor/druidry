@@ -90,4 +90,14 @@ public class CountAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+
+    @Test
+    public void testRename() {
+        CountAggregator aggregator1 = new CountAggregator("name");
+        CountAggregator aggregator2 = (CountAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+    }
 }

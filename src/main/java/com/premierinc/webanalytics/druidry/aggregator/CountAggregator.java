@@ -20,6 +20,7 @@ package com.premierinc.webanalytics.druidry.aggregator;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.experimental.Wither;
 
 @EqualsAndHashCode(callSuper = true)
 public class CountAggregator extends DruidAggregator {
@@ -29,5 +30,10 @@ public class CountAggregator extends DruidAggregator {
     public CountAggregator(@NonNull String name) {
         this.type = COUNT_TYPE_AGGREGATOR;
         this.name = name;
+    }
+
+    @Override
+    public DruidAggregator withName(String name) {
+        return new CountAggregator(name);
     }
 }

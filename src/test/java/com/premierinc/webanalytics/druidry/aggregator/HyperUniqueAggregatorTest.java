@@ -92,4 +92,25 @@ public class HyperUniqueAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+    @Test
+    public void testRename() {
+        HyperUniqueAggregator aggregator1 = new HyperUniqueAggregator("name", "testField");
+        HyperUniqueAggregator aggregator2 = (HyperUniqueAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+
+        HyperUniqueAggregator aggregator3 = new HyperUniqueAggregator("name", "testField", true);
+        HyperUniqueAggregator aggregator4 = (HyperUniqueAggregator) aggregator3.withName("newName");
+        Assert.assertNotEquals(aggregator3, aggregator4);
+
+        Assert.assertEquals(aggregator3.getName(), "name");
+        Assert.assertEquals(aggregator4.getName(), "newName");
+        Assert.assertEquals(aggregator3.getFieldName(), aggregator4.getFieldName());
+        Assert.assertEquals(aggregator3.getRound(), aggregator4.getRound());
+    }
+
 }

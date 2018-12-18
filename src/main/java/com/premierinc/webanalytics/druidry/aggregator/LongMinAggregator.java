@@ -28,10 +28,15 @@ public class LongMinAggregator extends DruidAggregator {
 
     private static final String LONG_MIN_TYPE_AGGREGATOR = "longMin";
     private String fieldName;
+    private String name;
 
     public LongMinAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = LONG_MIN_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new LongMinAggregator(name, this.fieldName);
     }
 }

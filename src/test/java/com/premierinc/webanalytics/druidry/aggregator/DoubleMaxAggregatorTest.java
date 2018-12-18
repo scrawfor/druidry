@@ -92,4 +92,16 @@ public class DoubleMaxAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+    @Test
+    public void testRename() {
+        DoubleMaxAggregator aggregator1 = new DoubleMaxAggregator("name", "testField");
+        DoubleMaxAggregator aggregator2 = (DoubleMaxAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+    }
+
 }

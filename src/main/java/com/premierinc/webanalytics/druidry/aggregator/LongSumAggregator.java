@@ -28,10 +28,15 @@ public class LongSumAggregator extends DruidAggregator {
 
     private static final String LONGSUM_TYPE_AGGREGATOR = "longSum";
     private String fieldName;
+    private String name;
 
     public LongSumAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = LONGSUM_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new LongSumAggregator(name, this.fieldName);
     }
 }

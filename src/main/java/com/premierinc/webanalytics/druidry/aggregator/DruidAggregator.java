@@ -20,11 +20,16 @@ package com.premierinc.webanalytics.druidry.aggregator;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Wither;
 
 @Getter
 @EqualsAndHashCode
 public abstract class DruidAggregator {
 
     protected String type;
-    protected String name;
+
+    @Setter
+    @Wither protected String name;
+
 }

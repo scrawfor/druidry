@@ -92,4 +92,16 @@ public class LongMinAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+    @Test
+    public void testRename() {
+        LongMinAggregator aggregator1 = new LongMinAggregator("name", "testField");
+        LongMinAggregator aggregator2 = (LongMinAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+    }
+
 }

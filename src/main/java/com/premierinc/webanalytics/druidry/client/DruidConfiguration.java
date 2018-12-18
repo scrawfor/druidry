@@ -42,12 +42,18 @@ public class DruidConfiguration {
      */
     private Integer concurrentConnectionsRequired;
 
+    private String username;
+
+    private String password;
+
     @Builder
     private DruidConfiguration(DruidQueryProtocol protocol,
                                String host,
                                Integer port,
                                String endpoint,
-                               Integer concurrentConnectionsRequired) {
+                               Integer concurrentConnectionsRequired,
+                               String username,
+                               String password) {
 
         if (StringUtils.isEmpty(host)) {
             throw new IllegalArgumentException("Host cannot be null or empty");
@@ -74,6 +80,8 @@ public class DruidConfiguration {
         this.port = port;
         this.endpoint = endpoint;
         this.concurrentConnectionsRequired = concurrentConnectionsRequired;
+        this.username = username;
+        this.password = password;
     }
 
     protected String getUrl() {

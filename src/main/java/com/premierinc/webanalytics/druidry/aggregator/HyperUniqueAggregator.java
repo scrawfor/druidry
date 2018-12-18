@@ -18,6 +18,7 @@
 
 package com.premierinc.webanalytics.druidry.aggregator;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -28,10 +29,26 @@ public class HyperUniqueAggregator extends DruidAggregator {
 
     private static final String HYPER_UNIQUE_TYPE_AGGREGATOR = "hyperUnique";
     private String fieldName;
+    private String name;
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private Boolean round = false;
 
     public HyperUniqueAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = HYPER_UNIQUE_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
     }
+
+    public HyperUniqueAggregator(@NonNull String name, @NonNull String fieldName, Boolean round) {
+        this.type = HYPER_UNIQUE_TYPE_AGGREGATOR;
+        this.name = name;
+        this.fieldName = fieldName;
+        this.round = round;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new HyperUniqueAggregator(name, this.fieldName, this.round);
+    }
+
 }

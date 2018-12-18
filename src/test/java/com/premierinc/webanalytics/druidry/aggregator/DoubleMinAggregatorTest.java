@@ -92,4 +92,16 @@ public class DoubleMinAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+    @Test
+    public void testRename() {
+        DoubleMinAggregator aggregator1 = new DoubleMinAggregator("name", "testField");
+        DoubleMinAggregator aggregator2 = (DoubleMinAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+    }
+
 }

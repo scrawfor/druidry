@@ -27,10 +27,15 @@ import lombok.NonNull;
 public class LongMaxAggregator extends DruidAggregator {
     private static final String LONG_MAX_TYPE_AGGREGATOR = "longMax";
     private String fieldName;
+    private String name;
 
     public LongMaxAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = LONG_MAX_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new LongMaxAggregator(name, this.fieldName);
     }
 }

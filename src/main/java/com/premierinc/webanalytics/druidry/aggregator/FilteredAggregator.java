@@ -20,7 +20,9 @@ package com.premierinc.webanalytics.druidry.aggregator;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
+import com.premierinc.webanalytics.druidry.filter.TrueFilter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -30,14 +32,40 @@ import lombok.NonNull;
 @EqualsAndHashCode(callSuper = true)
 public class FilteredAggregator extends DruidAggregator {
 
+    private static final ObjectMapper mapper = new ObjectMapper();
+
     private static final String FILTERED_AGGREGATOR_TYPE = "filtered";
 
     private DruidFilter filter;
     private DruidAggregator aggregator;
+    private String name;
 
     public FilteredAggregator(@NonNull DruidFilter filter, @NonNull DruidAggregator aggregator) {
         this.type = FILTERED_AGGREGATOR_TYPE;
         this.filter = filter;
         this.aggregator = aggregator;
     }
+
+    public FilteredAggregator(@NonNull DruidFilter filter, @NonNull DruidAggregator aggregator, String name) {
+        this.type = FILTERED_AGGREGATOR_TYPE;
+        this.filter = filter;
+        this.aggregator = aggregator.withName(name);
+        this.name = name;
+    }
+
+    public static void main(String[] args) throws Exception {
+        DruidAggregator agg = new HyperUniqueAggregator("example","abc");
+        DruidFilter filter = new TrueFilter();
+        FilteredAggregator fagg = new FilteredAggregator(filter, agg, "abc:" +agg.getName());
+
+        FilteredAggregator fagg2 = new FilteredAggregator(filter, agg, "def:" +agg.getName());
+        ObjectMapper m = new ObjectMapper();
+        System.out.println(m.writeValueAsString(fagg)+"\n\n"+m.writeValueAsString(fagg2));
+    }
+
+    public DruidAggregator withName(String name) {
+        return new FilteredAggregator(filter, aggregator, name);
+    }
+
+
 }

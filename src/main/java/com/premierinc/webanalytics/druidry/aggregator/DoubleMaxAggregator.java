@@ -21,6 +21,7 @@ package com.premierinc.webanalytics.druidry.aggregator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.experimental.Wither;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -28,10 +29,15 @@ public class DoubleMaxAggregator extends DruidAggregator {
 
     private static final String DOUBLE_MAX_TYPE_AGGREGATOR = "doubleMax";
     private String fieldName;
+    private String name;
 
     public DoubleMaxAggregator(@NonNull String name, @NonNull String fieldName) {
         this.type = DOUBLE_MAX_TYPE_AGGREGATOR;
         this.name = name;
         this.fieldName = fieldName;
+    }
+
+    public DruidAggregator withName(String name) {
+        return new DoubleMaxAggregator(name, this.fieldName);
     }
 }

@@ -196,4 +196,24 @@ public class JavaScriptAggregatorTest {
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
 
+    @Test
+    public void testRename() {
+        JavaScriptAggregator aggregator1 = JavaScriptAggregator.builder()
+                .name("name")
+                .fieldNames(Arrays.asList("a1", "a2"))
+                .functionAggregate("noopAggregate")
+                .functionCombine("noopCombine")
+                .functionReset("noopReset")
+                .build();
+        JavaScriptAggregator aggregator2 = (JavaScriptAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldNames(), aggregator2.getFieldNames());
+        Assert.assertEquals(aggregator1.getFunctionAggregate(), aggregator2.getFunctionAggregate());
+        Assert.assertEquals(aggregator1.getFunctionCombine(), aggregator2.getFunctionCombine());
+        Assert.assertEquals(aggregator1.getFunctionReset(), aggregator2.getFunctionReset());
+    }
+
 }

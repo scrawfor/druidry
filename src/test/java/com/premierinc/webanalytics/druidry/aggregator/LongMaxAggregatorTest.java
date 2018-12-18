@@ -92,4 +92,16 @@ public class LongMaxAggregatorTest {
 
         Assert.assertNotEquals(aggregator1, aggregator2);
     }
+
+    @Test
+    public void testRename() {
+        LongMaxAggregator aggregator1 = new LongMaxAggregator("name", "testField");
+        LongMaxAggregator aggregator2 = (LongMaxAggregator) aggregator1.withName("newName");
+        Assert.assertNotEquals(aggregator1, aggregator2);
+
+        Assert.assertEquals(aggregator1.getName(), "name");
+        Assert.assertEquals(aggregator2.getName(), "newName");
+        Assert.assertEquals(aggregator1.getFieldName(), aggregator2.getFieldName());
+    }
+
 }

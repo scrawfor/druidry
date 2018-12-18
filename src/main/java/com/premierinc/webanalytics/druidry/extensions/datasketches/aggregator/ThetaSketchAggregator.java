@@ -5,6 +5,7 @@ import com.google.common.math.LongMath;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.premierinc.webanalytics.druidry.aggregator.DoubleMaxAggregator;
 import com.premierinc.webanalytics.druidry.aggregator.DruidAggregator;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class ThetaSketchAggregator extends DruidAggregator {
 
     private static final String THETA_SKETCH_TYPE_AGGREGATOR = "thetaSketch";
     private String fieldName;
+
     private Boolean isInputThetaSketch;
     private Long size;
 
@@ -34,6 +36,15 @@ public class ThetaSketchAggregator extends DruidAggregator {
         if (size != null) {
             Preconditions.checkArgument(LongMath.isPowerOfTwo(size), "size must be a power of 2");
         }
+    }
+
+    public DruidAggregator withName(String name) {
+        return ThetaSketchAggregator.builder()
+                .name(name)
+                .fieldName(this.fieldName)
+                .size(this.size)
+                .isInputThetaSketch(this.isInputThetaSketch)
+                .build();
     }
 
 }
