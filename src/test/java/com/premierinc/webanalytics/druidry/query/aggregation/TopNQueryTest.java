@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
+import com.premierinc.webanalytics.druidry.datasource.TableDatasource;
 import com.premierinc.webanalytics.druidry.filter.AndFilter;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.filter.SelectorFilter;
@@ -102,7 +103,7 @@ public class TopNQueryTest {
         TopNMetric metric = new SimpleMetric("count");
 
         DruidTopNQuery query = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .dimension(dimension)
                 .threshold(5)
                 .topNMetric(metric)
@@ -188,7 +189,7 @@ public class TopNQueryTest {
         Granularity granularity = new SimpleGranularity(PredefinedGranularity.DAY);
 
         DruidTopNQuery query = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .dimension(dimension)
@@ -231,7 +232,7 @@ public class TopNQueryTest {
                 .build();
 
         DruidTopNQuery query = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .filter(filter)
@@ -299,7 +300,7 @@ public class TopNQueryTest {
                 .build();
 
         DruidTopNQuery query1 = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .filter(filter)
@@ -312,7 +313,7 @@ public class TopNQueryTest {
                 .build();
 
         DruidTopNQuery query2 = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .filter(filter)
@@ -346,7 +347,7 @@ public class TopNQueryTest {
                 .build();
 
         DruidTopNQuery query1 = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .filter(filter)
@@ -359,7 +360,7 @@ public class TopNQueryTest {
                 .build();
 
         DruidTopNQuery query2 = DruidTopNQuery.builder()
-                .dataSource("sample_data")
+                .dataSource(new TableDatasource("sample_data"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .filter(filter)

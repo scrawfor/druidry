@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
 import com.premierinc.webanalytics.druidry.SortingOrder;
+import com.premierinc.webanalytics.druidry.datasource.TableDatasource;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.filter.SelectorFilter;
 import com.premierinc.webanalytics.druidry.filter.searchQuerySpec.InsensitiveContainsSearchQuerySpec;
@@ -53,7 +54,7 @@ public class DruidSearchQueryTest {
         Interval interval = new Interval(startTime, endTime);
 
         DruidSearchQuery query = DruidSearchQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .granularity(new SimpleGranularity(PredefinedGranularity.DAY))
                 .searchDimensions(searchDimensions)
                 .query(searchQuerySpec)
@@ -95,7 +96,7 @@ public class DruidSearchQueryTest {
         Interval interval = new Interval(startTime, endTime);
 
         DruidSearchQuery query = DruidSearchQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .granularity(new SimpleGranularity(PredefinedGranularity.DAY))
                 .query(searchQuerySpec)
                 .intervals(Collections.singletonList(interval))
@@ -137,7 +138,7 @@ public class DruidSearchQueryTest {
                 .build();
 
         DruidSearchQuery query = DruidSearchQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .granularity(new SimpleGranularity(PredefinedGranularity.DAY))
                 .filter(druidFilter)
                 .limit(16)

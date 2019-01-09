@@ -19,6 +19,7 @@
 package com.premierinc.webanalytics.druidry.query.aggregation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.premierinc.webanalytics.druidry.datasource.Datasource;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
@@ -42,7 +43,7 @@ public class DruidTimeSeriesQuery extends DruidAggregationQuery {
     private Boolean descending;
 
     @Builder
-    private DruidTimeSeriesQuery(@NonNull String dataSource, Boolean descending,
+    private DruidTimeSeriesQuery(@NonNull Datasource dataSource, Boolean descending,
                                  @NonNull List<Interval> intervals, @NonNull Granularity granularity,
                                  DruidFilter filter, List<DruidAggregator> aggregators,
                                  List<DruidPostAggregator> postAggregators, Context context) {

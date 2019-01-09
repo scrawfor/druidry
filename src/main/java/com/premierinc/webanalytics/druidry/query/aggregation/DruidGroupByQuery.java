@@ -20,6 +20,7 @@ package com.premierinc.webanalytics.druidry.query.aggregation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.premierinc.webanalytics.druidry.datasource.Datasource;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
@@ -49,7 +50,7 @@ public class DruidGroupByQuery extends DruidAggregationQuery {
     private List<DruidDimension> dimensions;
 
     @Builder
-    private DruidGroupByQuery(@NonNull String dataSource,
+    private DruidGroupByQuery(@NonNull Datasource dataSource,
                               @NonNull List<DruidDimension> dimensions,
                               DefaultLimitSpec limitSpec,
                               @NonNull Granularity granularity,

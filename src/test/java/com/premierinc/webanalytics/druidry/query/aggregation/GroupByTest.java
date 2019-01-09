@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
+import com.premierinc.webanalytics.druidry.datasource.TableDatasource;
 import com.premierinc.webanalytics.druidry.filter.AndFilter;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.filter.OrFilter;
@@ -146,7 +147,7 @@ public class GroupByTest {
         Interval interval = new Interval(startTime, endTime);
 
         DruidGroupByQuery query = DruidGroupByQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .granularity(new SimpleGranularity(PredefinedGranularity.DAY))
                 .dimensions(Arrays.asList(druidDimension1, druidDimension2))
                 .limitSpec(limitSpec)
@@ -172,7 +173,7 @@ public class GroupByTest {
         Interval interval = new Interval(startTime, endTime);
 
         DruidGroupByQuery druidGroupByQuery = DruidGroupByQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .dimensions(Arrays.asList(druidDimension1, druidDimension2))
                 .granularity(granularity)
                 .intervals(Collections.singletonList(interval))
@@ -212,7 +213,7 @@ public class GroupByTest {
                 .build();
 
         DruidGroupByQuery druidGroupByQuery = DruidGroupByQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .dimensions(Arrays.asList(druidDimension1, druidDimension2))
                 .granularity(granularity)
                 .filter(filter)

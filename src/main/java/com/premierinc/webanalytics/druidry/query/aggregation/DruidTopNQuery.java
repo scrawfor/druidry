@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
+import com.premierinc.webanalytics.druidry.datasource.Datasource;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
@@ -46,7 +47,7 @@ public class DruidTopNQuery extends DruidAggregationQuery {
     private TopNMetric metric;
 
     @Builder
-    private DruidTopNQuery(@NonNull String dataSource,
+    private DruidTopNQuery(@NonNull Datasource dataSource,
                            @NonNull List<Interval> intervals,
                            @NonNull Granularity granularity,
                            DruidFilter filter,

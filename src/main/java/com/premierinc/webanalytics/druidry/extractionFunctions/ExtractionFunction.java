@@ -34,6 +34,7 @@ public abstract class ExtractionFunction {
     protected static final String TIME_PARSING_TYPE = "time";
     protected static final String JAVASCRIPT_TYPE = "javascript";
     protected static final String LOOPUP_TYPE = "lookup";
+    protected static final String BUCKET_TYPE = "bucket";
 
     // todo: bottom 3 are left to code. Also check for timeZone in timeformat type. lookup is also left
     protected static final String REGISTERED_LOOKUP_TYPE = "registeredLookup";

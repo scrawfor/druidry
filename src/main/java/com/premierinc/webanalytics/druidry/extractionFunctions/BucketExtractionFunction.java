@@ -16,27 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.premierinc.webanalytics.druidry.query;
+package com.premierinc.webanalytics.druidry.extractionFunctions;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import com.premierinc.webanalytics.druidry.Context;
-import com.premierinc.webanalytics.druidry.datasource.Datasource;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@EqualsAndHashCode
-public abstract class DruidQuery {
+@EqualsAndHashCode(callSuper = true)
+public class BucketExtractionFunction extends ExtractionFunction {
 
-    @NonNull
-    protected Datasource dataSource;
+    private long size;
+    private long offset;
 
-    protected Context context;
-
-    // Not making it public since this should be set by its children's constructor.
-    @NonNull
-    protected QueryType queryType;
+    @Builder
+    private BucketExtractionFunction(long size, long offset) {
+        this.type = BUCKET_TYPE;
+        this.size = size;
+        this.offset = offset;
+    }
 }

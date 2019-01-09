@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.premierinc.webanalytics.druidry.Context;
 import com.premierinc.webanalytics.druidry.Interval;
+import com.premierinc.webanalytics.druidry.datasource.TableDatasource;
 import com.premierinc.webanalytics.druidry.filter.AndFilter;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.filter.OrFilter;
@@ -110,7 +111,7 @@ public class TimeSeriesTest {
         Granularity granularity = new SimpleGranularity(PredefinedGranularity.DAY);
 
         DruidTimeSeriesQuery query = DruidTimeSeriesQuery.builder()
-                .dataSource("sample_datasource")
+                .dataSource(new TableDatasource("sample_datasource"))
                 .granularity(granularity)
                 .descending(true)
                 .filter(andFilter)
@@ -166,7 +167,7 @@ public class TimeSeriesTest {
         Granularity granularity = new SimpleGranularity(PredefinedGranularity.DAY);
 
         DruidTimeSeriesQuery seriesQuery = DruidTimeSeriesQuery.builder()
-                .dataSource("Matrix")
+                .dataSource(new TableDatasource("Matrix"))
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)
                 .build();
@@ -200,7 +201,7 @@ public class TimeSeriesTest {
         DruidPostAggregator postAggregator = new ConstantPostAggregator("Keep", 10.47);
 
         DruidTimeSeriesQuery seriesQuery = DruidTimeSeriesQuery.builder()
-                .dataSource("Matrix")
+                .dataSource(new TableDatasource("Matrix"))
                 .descending(true)
                 .intervals(Collections.singletonList(interval))
                 .granularity(granularity)

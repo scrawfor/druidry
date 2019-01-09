@@ -16,27 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.premierinc.webanalytics.druidry.query;
+package com.premierinc.webanalytics.druidry.postAggregator;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import com.premierinc.webanalytics.druidry.Context;
-import com.premierinc.webanalytics.druidry.datasource.Datasource;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@EqualsAndHashCode
-public abstract class DruidQuery {
+@EqualsAndHashCode(callSuper = true)
+public class FinalizingFieldAccessPostAggregator extends DruidPostAggregator {
 
-    @NonNull
-    protected Datasource dataSource;
+    private final static String FINALIZING_FIELD_ACCESS_POST_AGGREGATOR_TYPE = "finalizingFieldAccess";
 
-    protected Context context;
+    private String fieldName;
 
-    // Not making it public since this should be set by its children's constructor.
-    @NonNull
-    protected QueryType queryType;
+    public FinalizingFieldAccessPostAggregator(@NonNull String name, @NonNull String fieldName) {
+        this.type = FINALIZING_FIELD_ACCESS_POST_AGGREGATOR_TYPE;
+        this.name = name;
+        this.fieldName = fieldName;
+    }
+
+    public FinalizingFieldAccessPostAggregator(@NonNull String fieldName) {
+        this.type = FINALIZING_FIELD_ACCESS_POST_AGGREGATOR_TYPE;
+        this.fieldName = fieldName;
+    }
 }

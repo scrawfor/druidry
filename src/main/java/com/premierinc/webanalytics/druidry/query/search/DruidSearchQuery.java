@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
 import com.premierinc.webanalytics.druidry.Interval;
+import com.premierinc.webanalytics.druidry.datasource.Datasource;
 import com.premierinc.webanalytics.druidry.filter.DruidFilter;
 import com.premierinc.webanalytics.druidry.filter.searchQuerySpec.SearchQuerySpec;
 import com.premierinc.webanalytics.druidry.query.DruidQuery;
@@ -51,7 +52,7 @@ public class DruidSearchQuery extends DruidQuery {
     private SearchSortSpec sort;
 
     @Builder
-    private DruidSearchQuery(@NonNull String dataSource,
+    private DruidSearchQuery(@NonNull Datasource dataSource,
                              @NonNull Granularity granularity,
                              DruidFilter filter,
                              Integer limit,

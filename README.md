@@ -145,7 +145,7 @@ DruidDimension dimension = new SimpleDimension("sample_dim");
 TopNMetric metric = new SimpleMetric("count");
 
 DruidTopNQuery query = DruidTopNQuery.builder()
-        .dataSource("sample_data")
+        .dataSource(new TableDatasource("sample_data")
         .dimension(dimension)
         .threshold(5)
         .topNMetric(metric)
